@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:netflix_clone/model/model_movie.dart';
+import 'package:netflix_clone/screen/detail_screen.dart';
 
 class CarouselImage extends StatefulWidget {
   late final List<Movie> movies;
@@ -62,13 +63,13 @@ class _CarouselImageState extends State<CarouselImage> {
                     children: <Widget>[
                       likes[_currentPage]
                           ? IconButton(
-                        icon: Icon(Icons.check),
-                        onPressed: () {},
-                      )
+                              icon: Icon(Icons.check),
+                              onPressed: () {},
+                            )
                           : IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {},
-                      ),
+                              icon: Icon(Icons.add),
+                              onPressed: () {},
+                            ),
                       Text(
                         "내가 찜한 콘텐츠",
                         style: TextStyle(fontSize: 11),
@@ -102,7 +103,13 @@ class _CarouselImageState extends State<CarouselImage> {
                     children: <Widget>[
                       IconButton(
                         icon: Icon(Icons.info),
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.of(context).push(MaterialPageRoute<Null>(
+                              fullscreenDialog: true,
+                              builder: (BuildContext context) {
+                                return DetailScreen(movies[_currentPage]);
+                              }));
+                        },
                       ),
                       Text(
                         '정보',
@@ -115,7 +122,10 @@ class _CarouselImageState extends State<CarouselImage> {
             ),
           ),
           Container(
-            child: Row(mainAxisAlignment: MainAxisAlignment.center,children: makeIndicator(likes, _currentPage),),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: makeIndicator(likes, _currentPage),
+            ),
           )
         ],
       ),
@@ -126,7 +136,8 @@ class _CarouselImageState extends State<CarouselImage> {
 List<Widget> makeIndicator(List list, int _currentPage) {
   List<Widget> result = [];
   for (var i = 0; i < list.length; i++) {
-    result.add(Container(width: 8,
+    result.add(Container(
+      width: 8,
       height: 8,
       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
       decoration: BoxDecoration(
