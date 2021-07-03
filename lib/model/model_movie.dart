@@ -17,5 +17,5 @@ class Movie{
     :this.fromMap( snapshot.data() as Map<String, dynamic>, snapshot.reference);
 
   @override
-  String toString() =>"Movie<$title:$keyword>";
+  String toString() =>"<$title:$keyword>";
 }
